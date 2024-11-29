@@ -40,6 +40,7 @@ export const createUser = async (req, res) => {
       phone_number, 
       address
     })
+    console.log('New user created successfully')
   } catch (error) {
     console.error(error)
     return res.status(500).json({
@@ -58,6 +59,7 @@ export const updateUser = async (req, res) => {
     })
     const [rows] = await pool.query('SELECT * FROM users WHERE id_user = ?', [id])
     res.json(rows[0])
+    console.log(`User with id ${id} was updated successfully`)
   } catch (error) {
     console.error(error)
     return res.status(500).json({
@@ -74,6 +76,7 @@ export const deleteUser = async (req, res) => {
       message: 'User not found'
     })
     res.sendStatus(204)
+    console.log(`User with id ${id} was successfully deleted`)
   } catch (error) {
     console.error(error)
     return res.status(500).json({

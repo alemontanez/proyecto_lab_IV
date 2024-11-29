@@ -40,6 +40,7 @@ export const createTask = async (req, res) => {
       expiration_date, 
       id_user
     })
+    console.log('New task created successfully')
   } catch (error) {
     console.error(error)
     return res.status(500).json({
@@ -58,6 +59,7 @@ export const updateTask = async (req, res) => {
     })
     const [rows] = await pool.query('SELECT * FROM tasks WHERE id_task = ?', [id])
     res.json(rows[0])
+    console.log(`Task with id ${id} was updated successfully`)
   } catch (error) {
     console.error(error)
     return res.status(500).json({
@@ -72,6 +74,7 @@ export const deleteTask = async (req, res) => {
       message: 'Task not found'
     })
     res.sendStatus(204)
+    console.log(`Task with id ${req.params.id} was successfully deleted`)
   } catch (error) {
     console.error(error)
     return res.status(500).json({
