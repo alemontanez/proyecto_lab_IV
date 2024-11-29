@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { fetchTask, deleteTask } from "../api/tasksApi"
 
+
 export default function TaskDetail() {
 
   const { id } = useParams()
@@ -34,6 +35,7 @@ export default function TaskDetail() {
         <p>Fecha de expiración: {task.expiration_date}</p>
         <p>Usuario asignado: {task.id_user}</p>
       </section>
+      <button onClick={() => navigate(`/tasks/${id}/edit`)}>Editar tarea</button>
       <button onClick={() => del()}>Eliminar tarea</button>
     </>
   )
