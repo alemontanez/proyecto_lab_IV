@@ -48,7 +48,6 @@ export default function UpdateTask() {
           console.warn('Fecha de expiración inválida:', task.expiration_date)
         }
       }
-  
       setValue('id_user', task.id_user || '')
     }
   }, [task, setValue])
@@ -72,7 +71,7 @@ export default function UpdateTask() {
     <>
       <div className="form">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Crear nueva tarea</h1>
+          <h1>Editar tarea</h1>
           <label htmlFor="title">Título</label>
           <input
             placeholder="Título de la tarea"
@@ -153,7 +152,7 @@ export default function UpdateTask() {
             }
           </select>
 
-          <button>Crear tarea</button>
+          <button>Guardar cambios</button>
         </form>
 
       </div>

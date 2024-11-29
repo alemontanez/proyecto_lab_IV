@@ -1,7 +1,9 @@
+import UpdateUser from '../components/UpdateUser'
+
 export default function UpdateUserView() {
   return (
     <>
-      <h1>Update User View</h1>
+      <UpdateUser />
     </>
   )
 }

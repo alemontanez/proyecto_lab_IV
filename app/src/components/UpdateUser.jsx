@@ -1,9 +1,14 @@
 import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
-import { createUser } from "../api/usersApi"
+import { useNavigate, useParams } from "react-router-dom"
+import { fetchUserProfile, updateUser } from "../api/usersApi"
 import '../styles/Form.css'
+import { useState, useEffect } from "react"
 
 export default function CreateUserForm() {
+
+  const { id } = useParams()
+  const [user, setUser] = useState({})
+  const navigate = useNavigate()
 
   const {
     register,
@@ -13,12 +18,46 @@ export default function CreateUserForm() {
     formState: { errors }
   } = useForm()
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const data = await fetchUserProfile(id)
+        if (data) {
+          setUser(data)
+        }
+      } catch (error) {
+        console.error('Error al obtener el usuario:', error)
+      }
+    }
+    getUser()
+  }, [id])
+
+  useEffect(() => {
+    if (user && Object.keys(user).length > 0) {
+      setValue('first_name', user.first_name || '')
+      setValue('last_name', user.last_name || '')
+      setValue('document', user.document || '')
+
+      if (user.birthdate) {
+        const birthDate = new Date(user.birthdate)
+        if (!isNaN(birthDate.getTime())) {
+          const formattedBirthDate = birthDate.toISOString().slice(0, 10) // Formato YYYY-MM-DD
+          setValue('birthdate', formattedBirthDate)
+        } else {
+          console.warn('Fecha de nacimiento inválida:', user.birthdate)
+        }
+      }
+
+      setValue('phone_number', user.phone_number || '')
+      setValue('address', user.address || '')
+    }
+  }, [user, setValue])
+
 
   const onSubmit = (data) => {
     const newUser = { ...data }
     reset()
-    createUser(newUser)
+    updateUser(newUser, id)
     alert('Usuario actualizado con éxito')
     navigate('/users')
   }
@@ -27,7 +66,7 @@ export default function CreateUserForm() {
     <>
       <div className="form">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Crear usuario</h1>
+          <h1>Modificar usuario</h1>
           <label htmlFor="first_name">Nombre</label>
           <input
             placeholder="Ingrese su nombre"
@@ -183,7 +222,7 @@ export default function CreateUserForm() {
             errors.address && <span>{errors.address.message}</span>
           }
 
-          <button>Crear usuario</button>
+          <button>Actualizar usuario</button>
 
         </form>
       </div>
