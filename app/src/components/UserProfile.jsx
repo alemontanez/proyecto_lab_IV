@@ -8,12 +8,12 @@ export default function UserProfile() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [user, setUser] = useState([])
-  const date = user.birthdate.slice(0, 10).replaceAll('-', '/')
-
+  
   useEffect(() => {
     const getUser = async () => {
       const data = await fetchUserProfile(id)
       if (data) {
+        data.birthdate = data.birthdate.slice(0, 10).replaceAll('-', '/')
         setUser(data)
       }
     }
@@ -48,7 +48,7 @@ export default function UserProfile() {
           </div>
           <div>
             <p>Fecha de nacimiento</p>
-            <p>{date}</p>
+            <p>{user.birthdate}</p>
           </div>
           <div>
             <p>Teléfono</p>

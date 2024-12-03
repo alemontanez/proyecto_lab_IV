@@ -1,0 +1,47 @@
+.users-container {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 15px;
+  padding: 15px;
+  border: solid rgb(210, 210, 210) 1px;
+  border-radius: 8px;
+}
+
+.users-container h2 {
+  color: rgb(44, 74, 173);
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.users-list div {
+  display: grid;
+  grid-template-columns: 1fr repeat(5, 4fr);
+  padding: 15px 0;
+  align-items: center;
+  justify-items: center;
+}
+
+.users-list div button {
+  width: fit-content;
+  font-family: inherit;
+  background-color: rgb(34, 34, 34);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 20px;
+}
+
+.users-list div button:hover {
+  background-color: rgb(89, 89, 89);
+  cursor: pointer;
+}
+
+.users-list div:not(:last-child) {
+  border-bottom: solid rgb(210, 210, 210) 1px;
+}
+
+.users-list div:first-child span {
+  color: rgb(145, 145, 145);
+}
+
+

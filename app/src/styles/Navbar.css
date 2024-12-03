@@ -17,6 +17,27 @@
   border-bottom: solid 2px rgba(0, 0, 0, 0);
 }
 
+.navbar ul:first-child a:first-child {
+  display: block;
+  padding: 2px 0 0 5px;
+  margin: 0;
+}
+.navbar ul:first-child a:first-child li {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.navbar ul:first-child a:first-child li img {
+  display: block;
+  width: auto;
+  height: 40px;
+}
+
+/* .navbar ul a img {
+  width: 100%;
+  height: 100%;
+} */
+
 .navbar ul:not(:last-child) a:not(:first-child):hover {
   border-bottom: solid 2px rgb(95, 145, 219);
 }

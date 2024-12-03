@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { Context } from "../context/context"
+import { Context } from "../context/Context"
 import { createTask } from "../api/tasksApi"
 import '../styles/Form.css'
 

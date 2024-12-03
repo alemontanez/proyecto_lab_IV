@@ -6,8 +6,11 @@ export default function Navbar() {
     <>
       <nav className='navbar'>
         <ul>
+        
           <Link to={'/'}>
-            <li>logo</li>
+            <li>
+              <img src="https://cdn-icons-png.flaticon.com/128/3093/3093615.png" alt="" />
+            </li>
           </Link>
           <Link to={'/'}>
             <li>Inicio</li>

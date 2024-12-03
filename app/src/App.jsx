@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import HomeView from './views/HomeView'
-import TasksView from './views/TasksView'
+import TaskListView from './views/TaskListView'
 import TaskDetailView from './views/TaskDetailView'
 import UsersView from './views/UsersView'
 import UserProfileView from './views/UserProfileView'
@@ -21,7 +21,7 @@ function App() {
         <ContextProvider>
           <Routes>
             <Route path='/' element={<HomeView />} />
-            <Route path='/tasks' element={<TasksView />} />
+            <Route path='/tasks' element={<TaskListView />} />
             <Route path='/tasks/:id' element={<TaskDetailView />} />
             <Route path='/users' element={<UsersView />} />
             <Route path='/users/:id' element={<UserProfileView />} />
