@@ -34,7 +34,7 @@ export default function TaskList() {
         return 'priority-low'
       case 'Pendiente':
         return 'status-pending'
-      case 'En curso':
+      case 'En progreso':
         return 'status-inProgress'
       case 'Completada':
         return 'status-completed'

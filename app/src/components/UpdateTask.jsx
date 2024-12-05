@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate, useParams } from "react-router-dom"
-import { Context } from "../context/context"
 import { fetchTask, updateTask } from "../api/tasksApi"
-import '../styles/Form.css'
+import { fetchUserNames } from "../api/usersApi"
+import '../styles/TaskDetail.css'
 
 export default function UpdateTask() {
-  const [userInfo] = useContext(Context)
   const { id } = useParams()
   const [task, setTask] = useState({})
+  const [userNames, setUserNames] = useState([])
 
   const {
     register,
@@ -30,15 +30,24 @@ export default function UpdateTask() {
       }
     }
     getTask()
+    const getUserNames = async () => {
+      try {
+        const data = await fetchUserNames()
+        if (data) setUserNames(data)
+      } catch (error) {
+        console.error('Error al obtener nombres de los usuarios', error)
+      }
+    }
+    getUserNames()
   }, [id])
 
-  
+
   useEffect(() => {
     if (task && Object.keys(task).length > 0) {
       setValue('title', task.title || '')
       setValue('description', task.description || '')
       setValue('status', task.status || '')
-  
+
       if (task.expiration_date) {
         const eDate = new Date(task.expiration_date)
         if (!isNaN(eDate.getTime())) { // Verifica que la fecha sea válida
@@ -77,16 +86,16 @@ export default function UpdateTask() {
             placeholder="Título de la tarea"
             type="text"
             {
-              ...register('title', {
-                required: {
-                  value: true,
-                  message: 'El título no puede estar vacío'
-                },
-                maxLength: {
-                  value: 40,
-                  message: 'El título no debe tener más de 40 caracteres'
-                }
-              })
+            ...register('title', {
+              required: {
+                value: true,
+                message: 'El título no puede estar vacío'
+              },
+              maxLength: {
+                value: 40,
+                message: 'El título no debe tener más de 40 caracteres'
+              }
+            })
             }
           />
           {
@@ -94,20 +103,20 @@ export default function UpdateTask() {
           }
 
           <label htmlFor="description">Descripción</label>
-          <input
+          <textarea
             placeholder="Descripción de la tarea"
             type="text"
             {
-              ...register('description', {
-                required: {
-                  value: true,
-                  message: 'La descripción no puede estar vacío'
-                },
-                maxLength: {
-                  value: 120,
-                  message: 'La descripción no debe tener más de 120 caracteres'
-                }
-              })
+            ...register('description', {
+              required: {
+                value: true,
+                message: 'La descripción no puede estar vacío'
+              },
+              maxLength: {
+                value: 120,
+                message: 'La descripción no debe tener más de 120 caracteres'
+              }
+            })
             }
           />
           {
@@ -122,21 +131,21 @@ export default function UpdateTask() {
           </select>
 
           <label htmlFor="expiration_date">Fecha de expiración</label>
-          <input 
-            type="date" 
+          <input
+            type="date"
             {
-              ...register('expiration_date', {
-                required: {
-                  value: true,
-                  message: 'La fecha de expiración es obligatoria'
-                },
-                validate: (value) => {
-                  if (new Date(value) < new Date()) {
-                    return 'Fecha no válida';
-                  }
-                  return true;
+            ...register('expiration_date', {
+              required: {
+                value: true,
+                message: 'La fecha de expiración es obligatoria'
+              },
+              validate: (value) => {
+                if (new Date(value) < new Date()) {
+                  return 'Fecha no válida';
                 }
-              })
+                return true;
+              }
+            })
             }
           />
           {
@@ -146,8 +155,8 @@ export default function UpdateTask() {
           <label htmlFor="id_user">Usuario asignado</label>
           <select {...register('id_user')}>
             {
-              userInfo.map(user => (
-                <option key={user.id} value={user.id}>{user.name}</option>
+              userNames.map(user => (
+                <option key={user.id_user} value={user.id_user}>{user.name_user}</option>
               ))
             }
           </select>

@@ -84,3 +84,15 @@ export const deleteUser = async (req, res) => {
     })
   }
 }
+
+export const getUserNames = async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT id_user, CONCAT(first_name, " ", last_name) AS name_user FROM users')
+    res.json(rows)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: 'Internal error'
+    })
+  }
+}

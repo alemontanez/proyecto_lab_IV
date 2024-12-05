@@ -1,0 +1,89 @@
+.task-detail {
+  display: flex;
+  margin: 30px 0;
+  border: solid rgb(210, 210, 210) 1px;
+  border-radius: 8px;
+  margin: 30px 40px;
+  padding: 30px;
+}
+
+.task-detail h2 {
+  margin: 0;
+}
+
+.task-detail form {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+}
+
+.task-detail form label {
+  padding: 6px 0;
+  margin-top: 12px;
+  font-size: 17px;
+  font-weight: 500;
+  font-size: larger;
+}
+
+.task-detail form :is(input, select) {
+  padding: 8px 4px;
+  border: solid 1px rgb(201, 201, 201);
+  border-radius: 6px;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: large;
+}
+
+.task-detail form input {
+  padding: 8px;
+}
+
+.task-detail button {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.task-detail span {
+  color: tomato;
+}
+
+.task-detail textarea {
+  padding: 8px 4px;
+  border: solid 1px rgb(201, 201, 201);
+  border-radius: 6px;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: large;
+  height: 120px;
+  resize: none;
+}
+
+.form-grid {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.form-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.form-buttons div:first-child button:first-child {
+  margin-right: 10px;
+}
+
+.form-buttons div:last-child button {
+  background-color: rgb(222, 84, 60);
+}
+
+.form-buttons div:last-child button:hover {
+  background-color: rgb(220, 110, 90);
+}

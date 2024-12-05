@@ -1,13 +1,14 @@
-import { useContext } from "react"
-import { useForm } from "react-hook-form"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Context } from "../context/Context"
+import { useForm } from "react-hook-form"
 import { createTask } from "../api/tasksApi"
+import { fetchUserNames } from "../api/usersApi"
 import '../styles/Form.css'
 
 export default function CreateTaskForm() {
 
-  const [userInfo] = useContext(Context)
+  const [userNames, setUserNames] = useState([])
+  const navigate = useNavigate()
 
   const {
     register,
@@ -15,8 +16,6 @@ export default function CreateTaskForm() {
     reset,
     formState: { errors }
   } = useForm()
-
-  const navigate = useNavigate()
 
   const onSubmit = (data) => {
     const creationDate = new Date()
@@ -27,10 +26,17 @@ export default function CreateTaskForm() {
     }
     reset()
     createTask(newTask)
-    // console.log(newTask)
     alert('Tarea creada con éxito')
     navigate('/tasks')
   }
+
+  useEffect(() => {
+    const getUserNames = async () => {
+      const data = await fetchUserNames()
+      if (data) setUserNames(data)
+      }
+    getUserNames()
+  }, [])
 
   return (
     <>
@@ -79,6 +85,13 @@ export default function CreateTaskForm() {
             errors.description && <span>{errors.description.message}</span>
           }
 
+          <label htmlFor="priority">Prioridad</label>
+          <select {...register('priority')}>
+            <option value="Baja">Baja</option>
+            <option value="Media">Media</option>
+            <option value="Alta">Alta</option>
+          </select>
+
           <label htmlFor="status">Estado</label>
           <select {...register('status')}>
             <option value="Pendiente">Pendiente</option>
@@ -111,8 +124,8 @@ export default function CreateTaskForm() {
           <label htmlFor="id_user">Usuario asignado</label>
           <select {...register('id_user')}>
             {
-              userInfo.map(user => (
-                <option key={user.id} value={user.id}>{user.name}</option>
+              userNames.map(user => (
+                <option key={user.id_user} value={user.id_user}>{user.name_user}</option>
               ))
             }
           </select>

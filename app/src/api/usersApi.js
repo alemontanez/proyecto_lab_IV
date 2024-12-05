@@ -26,6 +26,19 @@ export const fetchUserProfile = async (userId) => {
   }
 }
 
+export const fetchUserNames = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/usernames')
+    if (!response.ok) {
+      throw new Error('Error fetching usernames')
+    }
+    return await response.json()
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
 export const createUser = async (userData) => {
   try {
     const response = await fetch(API_URL, {
